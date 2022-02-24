@@ -167,7 +167,7 @@ function() {
     //  postSourcing: postSourcing,
     //  sublistChanged: sublistChanged,
     //  lineInit: lineInit,
-        validateField: validateField,
+    //  validateField: validateField,
     //  validateLine: validateLine,
     //  validateInsert: validateInsert,
     //  validateDelete: validateDelete,
