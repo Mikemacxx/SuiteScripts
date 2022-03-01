@@ -24,12 +24,12 @@
    log.debug('Supervisor ID',supervisorId);
 
 if(context.type == context.UserEventType.CREATE) {
-  var department = record.load({
+  var department = record.load({   // Get HR department by id
     type: record.Type.DEPARTMENT,
     id: 2,
     isDynamic: true,
 });
-var departmentPhone = department.getValue('custrecord_dept_phone');
+var departmentPhone = department.getValue('custrecord_dept_phone'); // Get department phone from the record you just loaded.
 
 var phoneCall = record.create({
   type : record.Type.PHONE_CALL,
@@ -39,7 +39,7 @@ var phoneCall = record.create({
 });
 phoneCall.setValue('title', "Call HR for your benefis.");
 phoneCall.setValue('assigned', employee.id);
-phoneCall.setValue('phone',departmentPhone);  //COULD**USE
+phoneCall.setValue('phone',departmentPhone);  //Set the new phone call phone number with the value of the department phone.
 phoneCall.save();
 log.debug('Call Created',phoneCall.getValue('title'));
 }
