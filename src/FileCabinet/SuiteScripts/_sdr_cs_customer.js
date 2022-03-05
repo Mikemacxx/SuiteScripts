@@ -1,11 +1,13 @@
 /**
- * @NApiVersion 2.x
+ * @NApiVersion 2.0
  * @NScriptType ClientScript
  * @NModuleScope SameAccount
  */
-define([],
-
-function() {
+define(['N/ui/dialog'],
+/**
+ * @param{dialog} dialog
+ */
+ function(dialog) {
     
     /**
      * Function to be executed after page is initialized.
@@ -161,8 +163,19 @@ function() {
      *
      * @since 2015.2
      */
-    function saveRecord(scriptContext) {
-
+    function saveRecord(context) {
+        var customerRec = context.currentRecord;
+        var newCoupCode = customerRec.getValue('custentity_sdr_coupon_code').length;
+        if(newCoupCode != 6) {
+            dialog.alert({
+                title: 'Coupon Invalid',
+                message: 'Please enter a valid Code.'
+            }); 
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     return {
