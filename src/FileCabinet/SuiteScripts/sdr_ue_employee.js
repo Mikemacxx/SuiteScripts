@@ -37,11 +37,42 @@ var phoneCall = record.create({
     customform : -150
   }
 });
-phoneCall.setValue('title', "Call HR for your benefis.");
+phoneCall.setValue('title', "Call HR for your benefits.");
 phoneCall.setValue('assigned', employee.id);
 phoneCall.setValue('phone',departmentPhone);  //Set the new phone call phone number with the value of the department phone.
 phoneCall.save();
 log.debug('Call Created',phoneCall.getValue('title'));
+
+var event = record.create({
+type : record.Type.CALENDAR_EVENT,
+isDynamic : true
+});
+event.setValue('title','Welcome meeting with Supervisor');
+
+event.selectNewLine({
+  sublistId : 'attendee'
+});
+event.setCurrentSublistValue({
+  sublistId : 'attendee',
+  fieldId : 'attendee',
+  value : employee.id
+});
+event.commitLine({
+  sublistId : 'attendee'
+});
+
+event.selectNewLine({
+  sublistId : 'attendee'
+});
+event.setCurrentSublistValue({
+  sublistId : 'attendee',
+  fieldId : 'attendee',
+  value : supervisorId
+});
+event.commitLine({
+  sublistId : 'attendee'
+});
+event.save();
 }
 }
         };
