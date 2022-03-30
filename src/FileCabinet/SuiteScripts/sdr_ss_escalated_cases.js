@@ -16,13 +16,13 @@ define(['N/search'],  //Important! For testing in console change define to requi
                     filters : [
                         search.createFilter({
                             name : 'status',
-                            operator : search.Operator.ANY_OF,
+                            operator : search.Operator.ANYOF,
                             values : 3
                         }),
                         search.createFilter ({
                             name : 'title',
                             operator : search.Operator.HASKEYWORDS,
-                            values : 'Support'
+                            values : 'Installation'
                         })
                     ],
                     columns : [
@@ -36,13 +36,13 @@ define(['N/search'],  //Important! For testing in console change define to requi
                         search.createColumn({name : 'title', join : 'employee'})
                     ]
                 });
-                var searchResults = casSearch.run().getRange({
+                var searchResults = caseSearch.run().getRange({
                     start: 0,
                     end: 9
                 });
                 // THIS IS WHERE WE BEGIN A LOOP TO LOOP THROUGH RESULTS ROWS
                   
-                for(i=0;i<searchResults.length;i++) {
+                for(i=0;i < searchResults.length;i++) {
                     
                   var subject = searchResults[i].getValue('title');
                   var assignedTo = searchResults[i].getValue('assigned');
@@ -55,8 +55,8 @@ define(['N/search'],  //Important! For testing in console change define to requi
                       name : 'title',
                       join : 'employee'
                   });
-                  log.debug('Case Info', 'Subject : ' + subject + '\n' +
-                  'Status : ' + status + '\n' +
+                  log.debug('Case Info', 'Subject : ' + subject + ' | ' +
+                  'Status : ' + status + ' | ' +
                   'Job Title : ' + jobTitle);
       
       
