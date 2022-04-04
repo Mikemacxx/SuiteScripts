@@ -3,11 +3,12 @@
  * @NScriptType ClientScript
  * @NModuleScope SameAccount
  */
-define(['N/ui/dialog'],
+define(['N/ui/dialog','N/runtime'],
 /**
- * @param{dialog} dialog
+ * @param {dialog} dialog
+ * @param {runtime} runtime
  */
- function(dialog) {
+ function(dialog,runtime) {
     
     /**
      * Function to be executed after page is initialized.
@@ -18,8 +19,15 @@ define(['N/ui/dialog'],
      *
      * @since 2015.2
      */
-    function pageInit(scriptContext) {
-
+    function pageInit(context) {
+        var customer = context.currentRecord;
+        var emailTran = customer.getValue('emailtransactions');
+        if(emailTran == false) {
+            var defaultUserLev = runtime.getCurrentScript().getParameter({
+                name : 'custscript_sdr_email_tran_pref'
+            });
+            customer.setValue('emailtransactions', defaultUserLev);
+        }
     }
 
     /**
@@ -179,7 +187,7 @@ define(['N/ui/dialog'],
     }
 
     return {
-     //   pageInit: pageInit,
+           pageInit: pageInit,
           fieldChanged: fieldChanged,
      //   postSourcing: postSourcing,
      //   sublistChanged: sublistChanged,

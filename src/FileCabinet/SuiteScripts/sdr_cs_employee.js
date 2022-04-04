@@ -3,9 +3,12 @@
  * @NScriptType ClientScript
  * @NModuleScope SameAccount
  */
- define([],
+ define(['N/runtime'],
+ /**
+  * @param {runtime} runtime
+  */
 
-    function() {
+    function(runtime) {
         
         /**
          * Function to be executed after page is initialized.
@@ -34,8 +37,17 @@
                 }
             }
             notes += 'This employee has ' + fRatingCount + ' F-rated reviews';
-            alert(notes);
+          //  alert(notes);
+          var empCode = employee.getValue('custentity_sdr_employee_code');
+          if(!empCode) {
+              var defaultEmpCode = runtime.getCurrentScript().getParameter({
+                  name : 'custscript_sdr_default_emp_code'
+              });
+              employee.setValue('custentity_sdr_employee_code', defaultEmpCode);
+            } 
         }
+
+        
     
         /**
          * Function to be executed when field is changed.
