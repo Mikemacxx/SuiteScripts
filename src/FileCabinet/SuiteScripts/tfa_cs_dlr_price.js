@@ -24,14 +24,15 @@
              sublistId: 'price1',
              line: 3
          });
-         newItem.setCurrentSublistValue({
-             sublistId: 'price1',
-             fieldId: 'price_1_',
-             value: 0.00
-         })
+         newItem.setCurrentMatrixSublistValue({
+            sublistId: 'price1',
+            fieldId: 'price',
+            column : 0,
+            value: 0.00
+         });
          newItem.commitLine({
              sublistId: 'price1'
-         })
+         });
      }
  
      /**
