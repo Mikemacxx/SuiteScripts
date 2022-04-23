@@ -44,6 +44,14 @@ define(['N/ui/serverWidget'],
                 label : 'Continue'
             });
             
+            nameFld.updateDisplayType({
+                displayType : serverWidget.FieldDisplayType.INLINE
+            });
+
+            empIdFld.updateDisplayType({
+                displayType : serverWidget.FieldDisplayType.HIDDEN
+            });
+
 
             response.writePage(form);
         }
