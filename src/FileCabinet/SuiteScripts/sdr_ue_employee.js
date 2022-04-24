@@ -2,14 +2,15 @@
  * @NApiVersion 2.x
  * @NScriptType UserEventScript
  */
- define(['N/record'],
+ define(['N/record', 'N/redirect'],
 /**
  * 
- * @param {record} record 
+ * @param {record} record
+ * @param {redirect} redirect
  * @returns 
  */
 
-    function(record) {
+    function(record, redirect) {
 
         return {
         	afterSubmit : function(context) {
@@ -40,7 +41,9 @@ var phoneCall = record.create({
 phoneCall.setValue('title', "Call HR for your benefits.");
 phoneCall.setValue('assigned', employee.id);
 phoneCall.setValue('phone',departmentPhone);  //Set the new phone call phone number with the value of the department phone.
+
 phoneCall.save();
+
 log.debug('Call Created',phoneCall.getValue('title'));
 
 var event = record.create({
@@ -74,6 +77,16 @@ event.commitLine({
 });
 event.save();
 }
+
+redirect.toSuitelet({
+  scriptId: 'customscript_sdr_sl_update_emp_notes',
+  deploymentId: 'customdeploy_sdr_sl_update_emp_notes',
+  parameters : {
+sdr_name : employee.getValue('entityid'),
+sdr_notes : employee.getValue('comments'),
+sdr_empid : employee.id
+  }
+});
 }
         };
 
