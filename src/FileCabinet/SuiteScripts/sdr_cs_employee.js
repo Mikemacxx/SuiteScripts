@@ -3,12 +3,14 @@
  * @NScriptType ClientScript
  * @NModuleScope SameAccount
  */
- define(['N/runtime'],
+ define(['N/runtime','N/https','N/url'],
  /**
   * @param {runtime} runtime
+  * @param {https} https
+  * @param {url} url
   */
 
-    function(runtime) {
+    function(runtime,https,url) {
         
         /**
          * Function to be executed after page is initialized.
@@ -148,8 +150,12 @@
             if (context.fieldId == 'custentity_sdr_employee_code') {
              var empCode = employee.getValue('custentity_sdr_employee_code');
             
+                var response = https.get({
+                    url : '/app/site/hosting/restlet.nl?script=111&deploy=1' + '&sdr_emp_code=' + empCode
+                });
+
                  
-             if (empCode == 'x') {
+             if (response == 'invalid') {
                  alert('Invalid Employee Code. Please try again.');
                  employee.setValue('custentity_sdr_employee_code','');
                  return false;
@@ -225,8 +231,26 @@
          *
          * @since 2015.2
          */
-        function saveRecord(scriptContext) {
-    return true;
+        function saveRecord(context) {
+            var employee = context.currentRecord;
+            
+            if (context.fieldId == 'custentity_sdr_employee_code') {
+             var empCode = employee.getValue('custentity_sdr_employee_code');
+            
+                var response = https.get({
+                    url : '/app/site/hosting/restlet.nl?script=111&deploy=1' + '&sdr_emp_code=' + empCode
+                });
+
+                 
+             if (response == 'invalid') {
+                 alert('Invalid Employee Code. Please try again.');
+                 employee.setValue('custentity_sdr_employee_code','');
+                 return false;
+            
+             }
+            }
+             return true;
+        
         }
     
         return {
@@ -235,7 +259,7 @@
         //  postSourcing: postSourcing,
         //  sublistChanged: sublistChanged,
             lineInit: lineInit,
-            validateField: validateField,
+        //    validateField: validateField,
             validateLine: validateLine,
         //  validateInsert: validateInsert,
         //  validateDelete: validateDelete,
