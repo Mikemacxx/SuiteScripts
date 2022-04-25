@@ -150,12 +150,8 @@
             if (context.fieldId == 'custentity_sdr_employee_code') {
              var empCode = employee.getValue('custentity_sdr_employee_code');
             
-                var response = https.get({
-                    url : '/app/site/hosting/restlet.nl?script=111&deploy=1' + '&sdr_emp_code=' + empCode
-                });
-
                  
-             if (response == 'invalid') {
+             if (empCode == 'x') {
                  alert('Invalid Employee Code. Please try again.');
                  employee.setValue('custentity_sdr_employee_code','');
                  return false;
@@ -165,6 +161,7 @@
              return true;
             
             }
+    
     
         /**
          * Validation function to be executed when sublist line is committed.
@@ -231,26 +228,24 @@
          *
          * @since 2015.2
          */
-        function saveRecord(context) {
+        function saveRecord(context) {       
             var employee = context.currentRecord;
             
-            if (context.fieldId == 'custentity_sdr_employee_code') {
+           
              var empCode = employee.getValue('custentity_sdr_employee_code');
-            
-                var response = https.get({
-                    url : '/app/site/hosting/restlet.nl?script=111&deploy=1' + '&sdr_emp_code=' + empCode
-                });
-
+            var response = https.get({
+                url : '/app/site/hosting/restlet.nl?script=111&deploy=1' + '&sdr_emp_code=' + empCode
+            })
                  
-             if (response == 'invalid') {
+             if (response.body == 'invalid') {
                  alert('Invalid Employee Code. Please try again.');
-                 employee.setValue('custentity_sdr_employee_code','');
                  return false;
             
-             }
+            
             }
              return true;
-        
+            
+            
         }
     
         return {
@@ -260,7 +255,7 @@
         //  sublistChanged: sublistChanged,
             lineInit: lineInit,
         //    validateField: validateField,
-            validateLine: validateLine,
+        //    validateLine: validateLine,
         //  validateInsert: validateInsert,
         //  validateDelete: validateDelete,
             saveRecord: saveRecord
