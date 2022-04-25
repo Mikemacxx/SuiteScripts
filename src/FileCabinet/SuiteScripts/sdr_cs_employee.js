@@ -233,8 +233,13 @@
             
            
              var empCode = employee.getValue('custentity_sdr_employee_code');
+
+             var restletUrl = url.resolveScript({
+                 scriptId : 'customscript_sdr_rl_validate_emp_code',
+                 deploymentId : 'customdeploy_sdr_rl_validate_emp_code'
+             })
             var response = https.get({
-                url : '/app/site/hosting/restlet.nl?script=111&deploy=1' + '&sdr_emp_code=' + empCode
+                url : restletUrl + '&sdr_emp_code=' + empCode
             })
                  
              if (response.body == 'invalid') {
