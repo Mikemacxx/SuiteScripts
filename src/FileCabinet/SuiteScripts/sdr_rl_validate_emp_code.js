@@ -22,7 +22,7 @@ define([],
            
             }
 
-            return 'Valid';
+            return 'valid';
 
         }
 
@@ -65,7 +65,7 @@ define([],
         }
 
         return {get
-            // , put, post, delete: doDelete
+         // , put, post, delete: doDelete
         };
 
     });
