@@ -55,7 +55,7 @@ define(['N/record'],
 
                 if(custId && lanFirstContact == true) {
                     var loadedcust = record.load({
-                        type : record.Type.LEAD,
+                        type : record.Type.CUSTOMER,
                         id : custId});
                         loadedcust.setValue({
                             fieldId:'custentity_lanmark_first_contact',
@@ -65,7 +65,7 @@ define(['N/record'],
 
                 if(custId && lanFollowUp == true) {
                     var loadedcust = record.load({
-                        type : record.Type.LEAD,
+                        type : record.Type.CUSTOMER,
                         id : custId});
                         loadedcust.setValue({
                             fieldId:'custentity_lanmark_follow_up',
