@@ -16,8 +16,10 @@ define(['N/record'],
          * @param {ServletRequest} scriptContext.request - HTTP request information sent from the browser for a client action only.
          * @since 2015.2
          */
-        const beforeLoad = (scriptContext) => {
-
+        function beforeLoad(context) {
+            phoneRecord = context.newRecord;
+            var formVal = phoneRecord.getValue({fieldId: 'customform'})
+            alert(formVal);
         }
 
         /**
@@ -57,6 +59,8 @@ define(['N/record'],
                     var loadedcust = record.load({
                         type : record.Type.CUSTOMER,
                         id : custId});
+                        var custPhone = loadedcust.getField({fieldId: 'phone'});
+                        custPhone.isMandatory = false;
                         loadedcust.setValue({
                             fieldId:'custentity_lanmark_first_contact',
                             value: true });
@@ -67,9 +71,11 @@ define(['N/record'],
                     var loadedcust = record.load({
                         type : record.Type.CUSTOMER,
                         id : custId});
+                        var custPhone = loadedcust.getField({fieldId: 'phone'});
+                        custPhone.isMandatory = false;
                         loadedcust.setValue({
                             fieldId:'custentity_lanmark_follow_up',
-                            value: true });
+                            value: true});
                             loadedcust.save();
                 }
         }
